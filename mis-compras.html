@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mis Compras | MouseStore</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background-image:url("fondo.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:white;
+}
+
+nav{
+    background:rgba(0,0,0,0.9);
+    padding:18px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+nav h1{
+    color:#00bfff;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+nav a:hover{
+    color:#00bfff;
+}
+
+.contenedor{
+    min-height:100vh;
+    background:rgba(0,0,0,0.75);
+    padding:50px 20px;
+}
+
+.caja{
+    max-width:1000px;
+    margin:auto;
+    background:rgba(255,255,255,0.12);
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 0 20px black;
+}
+
+h2{
+    text-align:center;
+    color:#00bfff;
+    font-size:40px;
+    margin-bottom:30px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    color:black;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+th, td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+th{
+    background:#00bfff;
+    color:white;
+}
+
+button{
+    border:none;
+    padding:10px 15px;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+}
+
+.eliminar{
+    background:#dc3545;
+}
+
+.vacio{
+    text-align:center;
+    font-size:24px;
+    padding:30px;
+}
+
+footer{
+    background:rgba(0,0,0,0.95);
+    text-align:center;
+    padding:25px;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>🖱 MouseStore</h1>
+    <div>
+        <a href="index.html">Inicio</a>
+        <a href="carrito.html">Carrito</a>
+        <a href="mis-compras.html">Mis Compras</a>
+    </div>
+</nav>
+
+<div class="contenedor">
+
+<div class="caja">
+
+<h2>📦 Historial de Compras</h2>
+
+<div id="contenidoCompras"></div>
+
+</div>
+
+</div>
+
+<footer>
+    <p>© 2026 MouseStore - Todos los derechos reservados</p>
+</footer>
+
+<script>
+let compras = JSON.parse(localStorage.getItem("compras")) || [];
+
+function mostrarCompras(){
+
+    let contenedor = document.getElementById("contenidoCompras");
+
+    if(compras.length === 0){
+        contenedor.innerHTML = `
+            <p class="vacio">
+                No tienes compras registradas.
+            </p>
+        `;
+        return;
+    }
+
+    let tabla = `
+        <table>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Fecha</th>
+                <th>Acción</th>
+            </tr>
+    `;
+
+    compras.forEach((compra, index) => {
+        tabla += `
+            <tr>
+                <td>${compra.producto}</td>
+                <td>${compra.cantidad}</td>
+                <td>S/ ${compra.total}</td>
+                <td>${compra.fecha}</td>
+                <td>
+                    <button class="eliminar" onclick="eliminarCompra(${index})">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+
+    tabla += `</table>`;
+
+    contenedor.innerHTML = tabla;
+}
+
+function eliminarCompra(index){
+    compras.splice(index,1);
+    localStorage.setItem("compras", JSON.stringify(compras));
+    mostrarCompras();
+}
+
+mostrarCompras();
+</script>
+
+</body>
+</html>

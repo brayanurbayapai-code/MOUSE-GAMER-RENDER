@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mouse Pro X | MouseStore</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background-image:url("fondo.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:white;
+}
+
+.contenedor{
+    min-height:100vh;
+    background:rgba(0,0,0,.75);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:70px;
+    flex-wrap:wrap;
+    padding:50px;
+}
+
+.producto-img{
+    background:white;
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 0 30px rgba(0,191,255,.5);
+}
+
+.producto-img img{
+    width:400px;
+    max-width:100%;
+    display:block;
+}
+
+.info{
+    max-width:600px;
+    background:rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 0 25px rgba(0,0,0,.5);
+}
+
+h1{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.precio{
+    color:#00ff99;
+    font-size:55px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.descripcion{
+    font-size:22px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.caracteristicas{
+    margin-bottom:30px;
+}
+
+.caracteristicas li{
+    margin:12px 0;
+    font-size:20px;
+}
+
+.botones{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    padding:16px 30px;
+    border-radius:12px;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.btn-comprar{
+    background:#00bfff;
+}
+
+.btn-comprar:hover{
+    background:#009acd;
+}
+
+.btn-carrito{
+    background:#ff9800;
+}
+
+.btn-carrito:hover{
+    background:#e68900;
+}
+
+.btn-volver{
+    background:#28a745;
+}
+
+.btn-volver:hover{
+    background:#1f7d34;
+}
+
+a{
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="producto-img">
+
+        <img src="prox.jpg" alt="Mouse Pro X">
+
+    </div>
+
+    <div class="info">
+
+        <h1>Mouse Pro X</h1>
+
+        <div class="precio">
+            S/ 150
+        </div>
+
+        <p class="descripcion">
+            Mouse profesional diseñado para eSports y gaming competitivo.
+            Ofrece máxima precisión, velocidad de respuesta ultrarrápida y
+            un diseño premium para largas sesiones de juego.
+        </p>
+
+        <ul class="caracteristicas">
+            <li>✅ Sensor profesional de alta precisión</li>
+            <li>✅ Tecnología ultra rápida para eSports</li>
+            <li>✅ Diseño ergonómico premium</li>
+            <li>✅ Botones programables</li>
+            <li>✅ Cable reforzado de alta durabilidad</li>
+            <li>✅ Compatible con Windows y Mac</li>
+        </ul>
+
+        <div class="botones">
+
+            <form action="/formulario-compra" method="POST">
+
+                <input type="hidden" name="producto_id" value="3">
+
+                <button class="btn-comprar" type="submit">
+                    Comprar Ahora
+                </button>
+
+            </form>
+
+            <button class="btn-carrito" onclick="agregarAlCarrito()">
+                Agregar al Carrito
+            </button>
+
+            <a href="index.html">
+                <button class="btn-volver">
+                    Volver al Inicio
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function agregarAlCarrito(){
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    let producto = {
+        nombre: "Mouse Pro X",
+        precio: 150,
+        cantidad: 1
+    };
+
+    let existe = carrito.find(item => item.nombre === producto.nombre);
+
+    if(existe){
+        existe.cantidad++;
+    }
+    else{
+        carrito.push(producto);
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    alert("✅ Mouse Pro X agregado al carrito");
+
+    window.location.href="carrito.html";
+}
+
+</script>
+
+</body>
+</html>

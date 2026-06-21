@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Registro | MouseStore</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background-image: url("fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+}
+
+.contenedor{
+    min-height:100vh;
+    background:rgba(0,0,0,0.70);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.formulario{
+    width:450px;
+    background:rgba(255,255,255,0.95);
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 25px black;
+}
+
+.logo{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+h1{
+    color:#111;
+    margin-bottom:10px;
+}
+
+.subtitulo{
+    color:#555;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    background:#28a745;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    margin-top:15px;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#1f7d34;
+    transform:scale(1.03);
+}
+
+.login{
+    background:#00bfff;
+}
+
+.login:hover{
+    background:#009acd;
+}
+
+.enlaces{
+    margin-top:20px;
+    color:#333;
+}
+
+.enlaces a{
+    color:#007bff;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.enlaces a:hover{
+    text-decoration:underline;
+}
+
+.mensaje{
+    margin-top:15px;
+    font-weight:bold;
+    color:#555;
+    font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="formulario">
+
+        <div class="logo">🖱</div>
+
+        <h1>Crear Cuenta</h1>
+
+        <p class="subtitulo">
+            Regístrate para comprar en MouseStore
+        </p>
+
+        <form action="/registro" method="POST" onsubmit="return validarFormulario()">
+
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre completo" required>
+
+            <input type="email" name="correo" id="correo" placeholder="Correo electrónico" required>
+
+            <input type="password" name="password" id="password" placeholder="Contraseña" required>
+
+            <input type="password" name="confirmar" id="confirmar" placeholder="Confirmar contraseña" required>
+
+            <p id="mensaje" class="mensaje"></p>
+
+            <button type="submit">
+                Registrarse
+            </button>
+
+        </form>
+
+        <div class="enlaces">
+            ¿Ya tienes cuenta?
+            <a href="login.html">Inicia sesión aquí</a>
+        </div>
+
+        <a href="index.html">
+            <button class="login">
+                Volver al Inicio
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+function validarFormulario(){
+
+    let password = document.getElementById("password").value;
+    let confirmar = document.getElementById("confirmar").value;
+    let mensaje = document.getElementById("mensaje");
+
+    if(password !== confirmar){
+        mensaje.style.color = "red";
+        mensaje.innerHTML = "Las contraseñas no coinciden.";
+        return false;
+    }
+
+    if(password.length < 4){
+        mensaje.style.color = "red";
+        mensaje.innerHTML = "La contraseña debe tener al menos 4 caracteres.";
+        return false;
+    }
+
+    mensaje.style.color = "green";
+    mensaje.innerHTML = "Registrando usuario...";
+
+    return true;
+}
+
+</script>
+
+</body>
+</html>
