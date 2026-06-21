@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect, send_from_directory, session
-import sqlite3
+import mysql.connector
 import os
 
 app = Flask(__name__)
@@ -7,82 +7,12 @@ app.secret_key = "mouse_store_clave_secreta"
 
 
 def conectar():
-    conexion = sqlite3.connect("mousestore.db")
-    conexion.row_factory = sqlite3.Row
-    return conexion
-
-
-def crear_tablas():
-    conexion = conectar()
-    cursor = conexion.cursor()
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS usuarios (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT NOT NULL,
-            correo TEXT NOT NULL UNIQUE,
-            password TEXT NOT NULL,
-            fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-    """)
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS productos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nombre TEXT NOT NULL,
-            descripcion TEXT,
-            precio REAL NOT NULL,
-            imagen TEXT
-        )
-    """)
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS compras (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            usuario_id INTEGER NOT NULL,
-            fecha_compra DATETIME DEFAULT CURRENT_TIMESTAMP,
-            total REAL NOT NULL,
-            nombre_cliente TEXT,
-            telefono TEXT,
-            direccion TEXT,
-            metodo_pago TEXT,
-            dni TEXT,
-            correo_cliente TEXT,
-            departamento TEXT,
-            ciudad TEXT,
-            distrito TEXT,
-            numero_orden TEXT,
-            estado TEXT DEFAULT 'Confirmado',
-            FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
-        )
-    """)
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS detalle_compras (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            compra_id INTEGER NOT NULL,
-            producto_id INTEGER NOT NULL,
-            cantidad INTEGER NOT NULL,
-            subtotal REAL NOT NULL,
-            color TEXT,
-            FOREIGN KEY(compra_id) REFERENCES compras(id),
-            FOREIGN KEY(producto_id) REFERENCES productos(id)
-        )
-    """)
-
-    cursor.execute("""
-        INSERT OR IGNORE INTO productos (id, nombre, descripcion, precio, imagen) VALUES
-        (1, 'Mouse RGB Gamer', 'Mouse gamer RGB con iluminación personalizable', 80, 'rgb.jpg'),
-        (2, 'Mouse Inalambrico Gamer', 'Mouse inalámbrico gamer cómodo y preciso', 120, 'inalambrico.jpg'),
-        (3, 'Mouse Pro X', 'Mouse profesional de alto rendimiento', 150, 'prox.jpg')
-    """)
-
-    conexion.commit()
-    cursor.close()
-    conexion.close()
-
-
-crear_tablas()
+    return mysql.connector.connect(
+        host="127.0.0.1",
+        user="root",
+        password="benjamin1609",
+        database="mousestore"
+    )
 
 
 @app.route("/")
@@ -106,13 +36,13 @@ def registro():
 
     try:
         cursor.execute(
-            "INSERT INTO usuarios (nombre, correo, password) VALUES (?, ?, ?)",
+            "INSERT INTO usuarios (nombre, correo, password) VALUES (%s, %s, %s)",
             (nombre, correo, password)
         )
         conexion.commit()
         return redirect("/login.html")
 
-    except sqlite3.IntegrityError:
+    except mysql.connector.IntegrityError:
         return "Ese correo ya está registrado. <br><br><a href='/registro.html'>Volver</a>"
 
     except Exception as error:
@@ -129,10 +59,10 @@ def login():
     password = request.form["password"]
 
     conexion = conectar()
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(dictionary=True)
 
     cursor.execute(
-        "SELECT * FROM usuarios WHERE correo=? AND password=?",
+        "SELECT * FROM usuarios WHERE correo=%s AND password=%s",
         (correo, password)
     )
 
@@ -177,9 +107,9 @@ def formulario_compra():
     color = request.form.get("color", "No aplica")
 
     conexion = conectar()
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(dictionary=True)
 
-    cursor.execute("SELECT * FROM productos WHERE id=?", (producto_id,))
+    cursor.execute("SELECT * FROM productos WHERE id=%s", (producto_id,))
     producto = cursor.fetchone()
 
     cursor.close()
@@ -513,10 +443,10 @@ def confirmar_compra():
     color = request.form.get("color", "No aplica")
 
     conexion = conectar()
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(dictionary=True)
 
     try:
-        cursor.execute("SELECT precio FROM productos WHERE id=?", (producto_id,))
+        cursor.execute("SELECT precio FROM productos WHERE id=%s", (producto_id,))
         producto = cursor.fetchone()
 
         if not producto:
@@ -540,7 +470,7 @@ def confirmar_compra():
             INSERT INTO compras
             (usuario_id, total, nombre_cliente, telefono, direccion, metodo_pago,
              dni, correo_cliente, departamento, ciudad, distrito, estado)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'Confirmado')
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 'Confirmado')
             """,
             (
                 usuario_id, total, nombre_cliente, telefono, direccion, metodo_pago,
@@ -554,7 +484,7 @@ def confirmar_compra():
         numero_orden = f"MS-{compra_id:06d}"
 
         cursor.execute(
-            "UPDATE compras SET numero_orden=? WHERE id=?",
+            "UPDATE compras SET numero_orden=%s WHERE id=%s",
             (numero_orden, compra_id)
         )
 
@@ -562,7 +492,7 @@ def confirmar_compra():
             """
             INSERT INTO detalle_compras
             (compra_id, producto_id, cantidad, subtotal, color)
-            VALUES (?, ?, ?, ?, ?)
+            VALUES (%s, %s, %s, %s, %s)
             """,
             (compra_id, producto_id, cantidad, total, color)
         )
@@ -587,7 +517,7 @@ def mis_compras():
     usuario_id = session["usuario_id"]
 
     conexion = conectar()
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(dictionary=True)
 
     cursor.execute(
         """
@@ -614,7 +544,7 @@ def mis_compras():
         FROM compras c
         INNER JOIN detalle_compras d ON c.id = d.compra_id
         INNER JOIN productos p ON d.producto_id = p.id
-        WHERE c.usuario_id = ?
+        WHERE c.usuario_id = %s
         ORDER BY c.fecha_compra DESC
         """,
         (usuario_id,)
@@ -1032,7 +962,7 @@ def boleta(compra_id):
         return redirect("/login.html")
 
     conexion = conectar()
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(dictionary=True)
 
     cursor.execute(
         """
@@ -1059,7 +989,7 @@ def boleta(compra_id):
         FROM compras c
         INNER JOIN detalle_compras d ON c.id = d.compra_id
         INNER JOIN productos p ON d.producto_id = p.id
-        WHERE c.id = ? AND c.usuario_id = ?
+        WHERE c.id = %s AND c.usuario_id = %s
         """,
         (compra_id, session["usuario_id"])
     )
@@ -1419,7 +1349,7 @@ def admin_usuarios():
         return "Acceso denegado. Primero inicia sesión. <br><br><a href='/login.html'>Ir al Login</a>"
 
     conexion = conectar()
-    cursor = conexion.cursor()
+    cursor = conexion.cursor(dictionary=True)
 
     cursor.execute("SELECT COUNT(*) AS total FROM usuarios")
     total_usuarios = cursor.fetchone()["total"]
@@ -1430,14 +1360,14 @@ def admin_usuarios():
     cursor.execute("SELECT IFNULL(SUM(total), 0) AS ventas FROM compras")
     ventas_totales = cursor.fetchone()["ventas"]
 
-    cursor.execute("SELECT IFNULL(SUM(total), 0) AS ventas_hoy FROM compras WHERE DATE(fecha_compra) = DATE('now', 'localtime')")
+    cursor.execute("SELECT IFNULL(SUM(total), 0) AS ventas_hoy FROM compras WHERE DATE(fecha_compra) = CURDATE()")
     ventas_hoy = cursor.fetchone()["ventas_hoy"]
 
     cursor.execute("""
         SELECT IFNULL(SUM(total), 0) AS ventas_mes
         FROM compras
-        WHERE strftime('%m', fecha_compra) = strftime('%m', 'now', 'localtime')
-        AND strftime('%Y', fecha_compra) = strftime('%Y', 'now', 'localtime')
+        WHERE MONTH(fecha_compra)=MONTH(CURDATE())
+        AND YEAR(fecha_compra)=YEAR(CURDATE())
     """)
     ventas_mes = cursor.fetchone()["ventas_mes"]
 
@@ -2042,7 +1972,7 @@ def cambiar_estado():
     cursor = conexion.cursor()
 
     cursor.execute(
-        "UPDATE compras SET estado=? WHERE id=?",
+        "UPDATE compras SET estado=%s WHERE id=%s",
         (estado, compra_id)
     )
 
@@ -2061,7 +1991,7 @@ def eliminar_usuario(id):
     conexion = conectar()
     cursor = conexion.cursor()
 
-    cursor.execute("DELETE FROM usuarios WHERE id=?", (id,))
+    cursor.execute("DELETE FROM usuarios WHERE id=%s", (id,))
     conexion.commit()
 
     cursor.close()
