@@ -1,0 +1,41 @@
+body{
+    margin: 0;
+    padding: 0;
+
+    background:
+    linear-gradient(rgba(0,0,0,0.5),
+    rgba(0,0,0,0.5)),
+    url("fondo.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    height: 100vh;
+
+    font-family: Arial;
+    color: white;
+}
+
+.contenido{
+    text-align: center;
+    padding-top: 200px;
+}
+
+h1{
+    font-size: 70px;
+}
+
+p{
+    font-size: 25px;
+}
+
+button{
+    padding: 15px 35px;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: #00bfff;
+    color: white;
+    cursor: pointer;
+}

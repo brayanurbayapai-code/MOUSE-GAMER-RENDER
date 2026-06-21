@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mouse Inalámbrico Gamer | MouseStore</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background-image:url("fondo.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:white;
+}
+
+.contenedor{
+    min-height:100vh;
+    background:rgba(0,0,0,0.72);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:60px;
+    flex-wrap:wrap;
+    padding:50px;
+}
+
+.producto-img{
+    background:rgba(255,255,255,0.95);
+    border-radius:22px;
+    padding:30px;
+    box-shadow:0 0 30px rgba(0,191,255,0.5);
+    transition:0.4s;
+}
+
+.producto-img:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 40px rgba(0,191,255,0.8);
+}
+.producto-img img{
+    width:420px;
+    height:420px;
+    object-fit:contain;
+    transition:0.4s;
+}
+
+.producto-img img:hover{
+    transform:scale(1.08);
+}
+
+.info{
+    max-width:580px;
+    background:rgba(255,255,255,0.10);
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 0 20px black;
+}
+
+h1{
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.precio{
+    color:#00ff99;
+    font-size:50px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.descripcion{
+    font-size:20px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.caracteristicas{
+    margin-bottom:25px;
+    padding-left:20px;
+}
+
+.caracteristicas li{
+    margin:10px 0;
+    font-size:18px;
+}
+
+.botones{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+button{
+    border:none;
+    padding:15px 30px;
+    border-radius:10px;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.btn-comprar{
+    background:#00bfff;
+}
+
+.btn-comprar:hover{
+    background:#009acd;
+}
+
+.btn-carrito{
+    background:#ff9800;
+}
+
+.btn-carrito:hover{
+    background:#e68900;
+}
+
+.btn-volver{
+    background:#28a745;
+}
+
+.btn-volver:hover{
+    background:#1f7d34;
+}
+
+a{
+    text-decoration:none;
+}
+
+@media(max-width:768px){
+    h1{
+        font-size:38px;
+    }
+
+    .producto-img img{
+        width:280px;
+    }
+
+    .precio{
+        font-size:38px;
+    }
+
+    .contenedor{
+        padding:30px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="producto-img">
+          <img src="inalambrico.jpg" alt="Mouse Inalámbrico Gamer">
+    </div>
+
+    <div class="info">
+
+        <h1>Mouse Inalámbrico Gamer</h1>
+
+        <div class="precio">
+            S/ 120
+        </div>
+
+        <p class="descripcion">
+            Mouse gamer inalámbrico de alta precisión, diseñado para jugadores que buscan velocidad, comodidad y libertad de movimiento.
+        </p>
+
+        <ul class="caracteristicas">
+            <li>✅ Conexión inalámbrica de baja latencia</li>
+            <li>✅ Batería de larga duración</li>
+            <li>✅ Sensor de alta precisión</li>
+            <li>✅ Diseño ergonómico</li>
+            <li>✅ Compatible con Windows y Mac</li>
+        </ul>
+
+        <div class="botones">
+
+            <form action="/formulario-compra" method="POST">
+
+                <input type="hidden" name="producto_id" value="2">
+                <input type="hidden" name="precio" value="120">
+
+                <button class="btn-comprar" type="submit">
+                    Comprar Ahora
+                </button>
+
+            </form>
+
+            <button class="btn-carrito" onclick="agregarAlCarrito()">
+                Agregar al Carrito
+            </button>
+
+            <a href="index.html">
+                <button type="button" class="btn-volver">
+                    Volver al Inicio
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function agregarAlCarrito(){
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    let producto = {
+        nombre: "Mouse Inalámbrico Gamer",
+        precio: 120,
+        cantidad: 1
+    };
+
+    let existe = carrito.find(item => item.nombre === producto.nombre);
+
+    if(existe){
+        existe.cantidad++;
+    }else{
+        carrito.push(producto);
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    alert("✅ Mouse Inalámbrico Gamer agregado al carrito");
+
+    window.location.href = "carrito.html";
+}
+
+</script>
+
+</body>
+</html>

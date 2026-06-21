@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mouse RGB Gamer</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            color: white;
+        }
+
+        /* NAVBAR */
+
+        nav{
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        nav h1{
+            color: #00bfff;
+        }
+
+        nav a{
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav a:hover{
+            color: #00bfff;
+        }
+
+        /* CONTENEDOR */
+
+        .contenedor{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+            padding: 80px 20px;
+        }
+
+        /* IMAGEN */
+
+        .imagen-producto{
+            background-color: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0px 0px 20px black;
+        }
+
+        .imagen-producto img{
+            width: 350px;
+        }
+
+        /* INFO */
+
+        .info{
+            max-width: 500px;
+        }
+
+        .info h2{
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .precio{
+            font-size: 40px;
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .descripcion{
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        /* BOTONES */
+
+        .botones{
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        button{
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .comprar{
+            background-color: #00bfff;
+            color: white;
+        }
+
+        .comprar:hover{
+            background-color: #009acd;
+            transform: scale(1.05);
+        }
+
+        .carrito{
+            background-color: #28a745;
+            color: white;
+        }
+
+        .carrito:hover{
+            background-color: #1f7d34;
+            transform: scale(1.05);
+        }
+
+        /* CARACTERISTICAS */
+
+        .caracteristicas{
+            margin-top: 40px;
+        }
+
+        .caracteristicas h3{
+            margin-bottom: 15px;
+            color: #00bfff;
+        }
+
+        .caracteristicas ul{
+            line-height: 2;
+            font-size: 18px;
+        }
+
+        /* FOOTER */
+
+        footer{
+            background-color: rgba(0,0,0,0.8);
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:768px){
+
+            .info h2{
+                font-size: 35px;
+            }
+
+            .imagen-producto img{
+                width: 250px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <h1>MouseStore</h1>
+
+        <a href="index.html">⬅ Volver a la tienda</a>
+
+    </nav>
+
+    <!-- PRODUCTO -->
+
+    <section class="contenedor">
+
+        <!-- IMAGEN -->
+
+        <div class="imagen-producto">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3523/3523887.png">
+
+        </div>
+
+        <!-- INFORMACIÓN -->
+
+        <div class="info">
+
+            <h2>Mouse RGB Gamer</h2>
+
+            <div class="precio">S/ 80</div>
+
+            <p class="descripcion">
+
+                El Mouse RGB Gamer ofrece máxima precisión,
+                diseño ergonómico y luces RGB configurables.
+                Ideal para jugadores competitivos y uso profesional.
+
+            </p>
+
+            <!-- BOTONES -->
+
+            <div class="botones">
+
+                <button class="comprar">
+                    Comprar Ahora
+                </button>
+
+                <button class="carrito">
+                    Agregar al Carrito
+                </button>
+
+            </div>
+
+            <!-- CARACTERISTICAS -->
+
+            <div class="caracteristicas">
+
+                <h3>Características:</h3>
+
+                <ul>
+                    <li>✔ Sensor óptico profesional</li>
+                    <li>✔ Iluminación RGB</li>
+                    <li>✔ Diseño ergonómico</li>
+                    <li>✔ 7 botones configurables</li>
+                    <li>✔ Cable reforzado gamer</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 MouseStore - Todos los derechos reservados
+        </p>
+
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mouse RGB Gamer | MouseStore</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background-image:url("fondo.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:white;
+}
+
+.contenedor{
+    min-height:100vh;
+    background:rgba(0,0,0,.75);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:70px;
+    flex-wrap:wrap;
+    padding:50px;
+}
+
+.producto-img{
+    background:rgba(255,255,255,.95);
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 0 30px rgba(0,191,255,.6);
+    transition:.4s;
+}
+
+.producto-img:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 40px rgba(0,191,255,.9);
+}
+
+.producto-img img{
+    width:420px;
+    height:420px;
+    object-fit:contain;
+    transition:.4s;
+}
+
+.producto-img img:hover{
+    transform:scale(1.05);
+}
+
+.info{
+    max-width:620px;
+    background:rgba(255,255,255,.09);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 0 25px black;
+}
+
+h1{
+    font-size:58px;
+    margin-bottom:20px;
+}
+
+.precio{
+    color:#00ff99;
+    font-size:55px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+.descripcion{
+    font-size:21px;
+    line-height:1.8;
+    margin-bottom:25px;
+}
+
+.caracteristicas{
+    margin-bottom:25px;
+}
+
+.caracteristicas li{
+    margin:12px 0;
+    font-size:19px;
+}
+
+.color-box{
+    margin-bottom:25px;
+}
+
+.color-box label{
+    font-size:20px;
+    font-weight:bold;
+    display:block;
+    margin-bottom:10px;
+}
+
+select{
+    padding:14px;
+    border-radius:10px;
+    border:none;
+    font-size:18px;
+    width:260px;
+}
+
+.vista-color{
+    margin-top:10px;
+    font-size:16px;
+    color:#00ff99;
+    font-weight:bold;
+}
+
+.botones{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:none;
+    padding:16px 30px;
+    border-radius:12px;
+    color:white;
+    font-size:19px;
+    cursor:pointer;
+    transition:.3s;
+    font-weight:bold;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.btn-comprar{
+    background:#00bfff;
+}
+
+.btn-comprar:hover{
+    background:#009acd;
+}
+
+.btn-carrito{
+    background:#ff9800;
+}
+
+.btn-carrito:hover{
+    background:#e68900;
+}
+
+.btn-volver{
+    background:#28a745;
+}
+
+.btn-volver:hover{
+    background:#1f7d34;
+}
+
+a{
+    text-decoration:none;
+}
+
+@media(max-width:768px){
+    h1{
+        font-size:38px;
+    }
+
+    .producto-img img{
+        width:280px;
+        height:280px;
+    }
+
+    .precio{
+        font-size:38px;
+    }
+
+    .contenedor{
+        padding:30px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="producto-img">
+        <img id="imagenMouse" src="rgb.jpg" alt="Mouse RGB Gamer">
+    </div>
+
+    <div class="info">
+
+        <h1>Mouse RGB Gamer</h1>
+
+        <div class="precio">S/ 80</div>
+
+        <p class="descripcion">
+            Mouse gamer RGB con iluminación personalizable, disponible en color negro o blanco.
+            Ideal para jugadores que buscan precisión, estilo y comodidad en cada partida.
+        </p>
+
+        <ul class="caracteristicas">
+            <li>✅ Iluminación RGB multicolor</li>
+            <li>✅ Disponible en negro y blanco</li>
+            <li>✅ Sensor óptico de alta precisión</li>
+            <li>✅ Diseño ergonómico gamer</li>
+            <li>✅ Botones programables</li>
+            <li>✅ Compatible con Windows y Mac</li>
+        </ul>
+
+        <form action="/formulario-compra" method="POST">
+
+            <input type="hidden" name="producto_id" value="1">
+
+            <div class="color-box">
+                <label>Color del mouse</label>
+
+                <select id="colorMouse" name="color" required onchange="cambiarImagen()">
+                    <option value="">Seleccione un color</option>
+                    <option value="Negro">⚫ Negro</option>
+                    <option value="Blanco">⚪ Blanco</option>
+                </select>
+
+                <p class="vista-color" id="textoColor">
+                    Selecciona un color para ver la imagen del producto.
+                </p>
+            </div>
+
+            <div class="botones">
+
+                <button class="btn-comprar" type="submit">
+                    Comprar Ahora
+                </button>
+
+                <button type="button" class="btn-carrito" onclick="agregarAlCarrito()">
+                    Agregar al Carrito
+                </button>
+
+                <a href="index.html">
+                    <button type="button" class="btn-volver">
+                        Volver al Inicio
+                    </button>
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+function cambiarImagen(){
+
+    let color = document.getElementById("colorMouse").value;
+    let imagen = document.getElementById("imagenMouse");
+    let texto = document.getElementById("textoColor");
+
+    if(color === "Negro"){
+        imagen.src = "rgb-negro.jpg";
+        texto.innerHTML = "Color seleccionado: Negro";
+    }
+    else if(color === "Blanco"){
+        imagen.src = "rgb-blanco.jpg";
+        texto.innerHTML = "Color seleccionado: Blanco";
+    }
+    else{
+        imagen.src = "rgb.jpg";
+        texto.innerHTML = "Selecciona un color para ver la imagen del producto.";
+    }
+}
+
+function agregarAlCarrito(){
+
+    let color = document.getElementById("colorMouse").value;
+
+    if(color === ""){
+        alert("Selecciona un color antes de agregar al carrito.");
+        return;
+    }
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    let producto = {
+        nombre: "Mouse RGB Gamer",
+        precio: 80,
+        cantidad: 1,
+        color: color
+    };
+
+    carrito.push(producto);
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    alert("✅ Mouse RGB Gamer color " + color + " agregado al carrito");
+
+    window.location.href = "carrito.html";
+}
+</script>
+
+</body>
+</html>

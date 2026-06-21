@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Explorar Tiendas</title>
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right,#141e30,#243b55);
+    color: white;
+}
+
+/* NAVBAR */
+
+nav{
+    background-color: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+nav h1{
+    color: #00bfff;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+nav a:hover{
+    color: #00bfff;
+}
+
+/* TITULO */
+
+.titulo{
+    text-align: center;
+    padding: 50px 20px 20px;
+}
+
+.titulo h2{
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.titulo p{
+    font-size: 20px;
+    color: #dcdcdc;
+}
+
+/* TIENDAS */
+
+.contenedor{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 50px 20px;
+}
+
+.tienda{
+    width: 320px;
+    background-color: rgba(255,255,255,0.95);
+    color: black;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px black;
+    transition: 0.4s;
+}
+
+.tienda:hover{
+    transform: translateY(-10px);
+}
+
+.tienda img{
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.info{
+    padding: 25px;
+    text-align: center;
+}
+
+.info h3{
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.info p{
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+button{
+    background-color: #00bfff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover{
+    background-color: #009acd;
+    transform: scale(1.05);
+}
+
+/* FOOTER */
+
+footer{
+    background-color: rgba(0,0,0,0.9);
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+footer p{
+    margin: 5px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    nav{
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .titulo h2{
+        font-size: 35px;
+    }
+
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h1>MouseStore</h1>
+
+    <a href="index.html">
+        ⬅ Volver al Inicio
+    </a>
+
+</nav>
+
+<!-- TITULO -->
+
+<section class="titulo">
+
+    <h2>Explorar Tiendas Gamer</h2>
+
+    <p>
+        Descubre las mejores tiendas de tecnología y gaming
+    </p>
+
+</section>
+
+<!-- TIENDAS -->
+
+<div class="contenedor">
+
+    <!-- TIENDA 1 -->
+
+    <div class="tienda">
+
+        <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="info">
+
+            <h3>Logitech G</h3>
+
+            <p>
+                Mouse, teclados y accesorios gamer profesionales.
+            </p>
+
+            <a href="https://www.logitechg.com/" target="_blank">
+
+                <button>
+                    Visitar Tienda
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- TIENDA 2 -->
+
+    <div class="tienda">
+
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="info">
+
+            <h3>Razer</h3>
+
+            <p>
+                Equipos gamer premium y periféricos de alta calidad.
+            </p>
+
+            <a href="https://www.razer.com/" target="_blank">
+
+                <button>
+                    Visitar Tienda
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- TIENDA 3 -->
+
+    <div class="tienda">
+
+        <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="info">
+
+            <h3>Mercado Libre</h3>
+
+            <p>
+                Encuentra miles de mouse gamer al mejor precio.
+            </p>
+
+            <a href="https://www.mercadolibre.com.pe/" target="_blank">
+
+                <button>
+                    Visitar Tienda
+                </button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        © 2026 MouseStore - Todos los derechos reservados
+    </p>
+
+    <p>
+        Tiendas Gamer Oficiales
+    </p>
+
+</footer>
+
+</body>
+</html>

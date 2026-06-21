@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | MouseStore</title>
+
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background-image: url("fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.contenedor{
+    min-height:100vh;
+    background:rgba(0,0,0,0.70);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+}
+
+.formulario{
+    width:420px;
+    background:rgba(255,255,255,0.95);
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 25px black;
+}
+
+.logo{
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+h1{
+    color:#111;
+    margin-bottom:10px;
+}
+
+.subtitulo{
+    color:#555;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    background:#00bfff;
+    color:white;
+    border:none;
+    padding:15px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    margin-top:15px;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#009acd;
+    transform:scale(1.03);
+}
+
+.enlaces{
+    margin-top:20px;
+    color:#333;
+}
+
+.enlaces a{
+    color:#007bff;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.enlaces a:hover{
+    text-decoration:underline;
+}
+
+.volver{
+    background:#28a745;
+}
+
+.volver:hover{
+    background:#1f7d34;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <div class="formulario">
+
+        <div class="logo">🖱</div>
+
+        <h1>Iniciar Sesión</h1>
+
+        <p class="subtitulo">
+            Accede a tu cuenta de MouseStore
+        </p>
+
+        <form action="/login" method="POST">
+
+            <input type="email" name="correo" placeholder="Correo electrónico" required>
+
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <button type="submit">
+                Ingresar
+            </button>
+
+        </form>
+
+        <div class="enlaces">
+            ¿No tienes cuenta?
+            <a href="registro.html">Regístrate aquí</a>
+        </div>
+
+        <a href="index.html">
+            <button class="volver">
+                Volver al Inicio
+            </button>
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

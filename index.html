@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MouseStore | Tienda Gamer</title>
+
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body{
+            font-family: Arial, sans-serif;
+            background-image: url("fondo.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        nav{
+            background-color: rgba(0,0,0,0.92);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 50px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 0 12px black;
+        }
+
+        nav h1{
+            color: #00bfff;
+            font-size: 35px;
+        }
+
+        .usuario{
+            color: #00ff99;
+            font-weight: bold;
+            font-size: 16px;
+            margin-left: 15px;
+        }
+
+        nav ul{
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav ul li a{
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover{
+            color: #00bfff;
+        }
+
+        .cerrar-sesion{
+            background-color: #dc3545;
+            padding: 9px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .cerrar-sesion:hover{
+            background-color: #b02a37;
+            color: white;
+        }
+
+        .hero{
+            height: 100vh;
+            background: rgba(0,0,0,0.65);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-contenido h2{
+            font-size: 70px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px black;
+        }
+
+        .hero-contenido p{
+            font-size: 24px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .hero button{
+            background-color: #00bfff;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .hero button:hover{
+            background-color: #009acd;
+            transform: scale(1.05);
+        }
+
+        .titulo-container{
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .titulo{
+            background-color: rgba(0,0,0,0.8);
+            display: inline-block;
+            padding: 15px 35px;
+            border-radius: 10px;
+            font-size: 42px;
+        }
+
+        .contenedor{
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+            padding: 60px 40px;
+        }
+
+        .producto{
+            width: 320px;
+            background-color: rgba(255,255,255,0.96);
+            color: black;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0px 0px 15px black;
+            transition: 0.4s;
+        }
+
+        .producto:hover{
+            transform: translateY(-12px);
+        }
+
+        .producto img{
+    width:100%;
+    height:280px;
+    object-fit:cover;
+    background:white;
+    transition:0.4s;
+}
+
+.producto:hover img{
+    transform:scale(1.08);
+}
+        
+
+        .info{
+            padding: 25px;
+            text-align: center;
+        }
+
+        .info h3{
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .info p{
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .precio{
+            font-size: 32px;
+            color: green;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .botones{
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button{
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover{
+            transform: scale(1.05);
+        }
+
+        .comprar{
+            background-color: #007bff;
+        }
+
+        .comprar:hover{
+            background-color: #0056b3;
+        }
+
+        .carrito{
+            background-color: #28a745;
+        }
+
+        .carrito:hover{
+            background-color: #1f7d34;
+        }
+
+        .estadisticas{
+            background-color: rgba(0,0,0,0.85);
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 50px 20px;
+        }
+
+        .stat{
+            text-align: center;
+            width: 230px;
+        }
+
+        .stat h3{
+            color: #00bfff;
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .stat p{
+            font-size: 17px;
+        }
+
+        .beneficios{
+            background-color: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 70px 20px;
+        }
+
+        .beneficio{
+            width: 250px;
+            text-align: center;
+        }
+
+        .beneficio h3{
+            margin: 15px 0;
+            color: #00bfff;
+            font-size: 24px;
+        }
+
+        .beneficio p{
+            line-height: 1.5;
+        }
+
+        .contacto{
+            text-align: center;
+            padding: 70px 20px;
+            background-color: rgba(255,255,255,0.08);
+        }
+
+        .contacto h2{
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .contacto input,
+        .contacto textarea{
+            width: 80%;
+            max-width: 500px;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .contacto button{
+            background-color: #00bfff;
+            margin-top: 10px;
+            padding: 15px 25px;
+            font-size: 18px;
+        }
+
+        .contacto button:hover{
+            background-color: #009acd;
+        }
+
+        footer{
+            background-color: rgba(0,0,0,0.95);
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer p{
+            margin: 5px;
+        }
+
+        @media(max-width:768px){
+
+            nav{
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul{
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-contenido h2{
+                font-size: 42px;
+            }
+
+            .hero-contenido p{
+                font-size: 18px;
+            }
+
+            .titulo{
+                font-size: 30px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div>
+            <h1>🖱 MouseStore</h1>
+            <span class="usuario" id="usuarioActivo"></span>
+        </div>
+
+        <ul>
+
+            <li>
+                <a href="#">Inicio</a>
+            </li>
+
+            <li>
+                <a href="#productos">Productos</a>
+            </li>
+
+            <li>
+                <a href="explorar.html">Explorar Tiendas</a>
+            </li>
+
+            <li>
+                <a href="#contacto">Contacto</a>
+            </li>
+
+            <li>
+                <a href="carrito.html">🛒 Carrito (<span id="contadorCarrito">0</span>)</a>
+            </li>
+
+            <li>
+                <a href="mis-compras.html">📦 Mis Compras</a>
+            </li>
+
+            <li>
+                <a href="login.html" id="loginLink">🔑 Login</a>
+            </li>
+
+            <li>
+                <a href="registro.html" id="registroLink">👤 Registro</a>
+            </li>
+
+            <li>
+                <a class="cerrar-sesion" id="cerrarSesion" onclick="cerrarSesion()" style="display:none;">
+                    Cerrar Sesión
+                </a>
+            </li>
+<li>
+    <a href="/admin-usuarios">⚙ Admin</a>
+</li>
+        </ul>
+
+    </nav>
+
+    <section class="hero">
+
+        <div class="hero-contenido">
+
+            <h2>Bienvenido al Mundo Gamer</h2>
+
+            <p>
+                Descubre los mejores mouse gamer RGB, inalámbricos y profesionales con envío gratis a todo el Perú.
+            </p>
+
+            <a href="explorar.html">
+
+                <button>
+                    Explorar Tienda
+                </button>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <section class="estadisticas">
+
+        <div class="stat">
+            <h3>+500</h3>
+            <p>Clientes satisfechos</p>
+        </div>
+
+        <div class="stat">
+            <h3>+1000</h3>
+            <p>Productos vendidos</p>
+        </div>
+
+        <div class="stat">
+            <h3>24/7</h3>
+            <p>Atención al cliente</p>
+        </div>
+
+    </section>
+
+    <div class="titulo-container" id="productos">
+
+        <h2 class="titulo">
+            Productos Destacados
+        </h2>
+
+    </div>
+
+    <div class="contenedor">
+
+        <div class="producto">
+
+            <img src="rgb.jpg" alt="Mouse RGB Gamer">
+
+            <div class="info">
+
+                <h3>Mouse RGB Gamer</h3>
+
+                <p>
+                    Mouse gamer con iluminación RGB y sensor profesional.
+                </p>
+
+                <div class="precio">
+                    S/ 80
+                </div>
+
+                <div class="botones">
+
+                    <a href="compra-rgb.html">
+                        <button class="comprar">
+                            Comprar
+                        </button>
+                    </a>
+
+                    <a href="carrito.html">
+                        <button class="carrito">
+                            Carrito
+                        </button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="producto">
+
+            <img src="inalambrico.jpg" alt="Mouse Inalambrico Gamer">
+
+            <div class="info">
+
+                <h3>Mouse Inalámbrico</h3>
+
+                <p>
+                    Conexión rápida y batería de larga duración.
+                </p>
+
+                <div class="precio">
+                    S/ 120
+                </div>
+
+                <div class="botones">
+
+                    <a href="compra-inalambrica.html">
+                        <button class="comprar">
+                            Comprar
+                        </button>
+                    </a>
+
+                    <a href="carrito.html">
+                        <button class="carrito">
+                            Carrito
+                        </button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="producto">
+
+           <img src="prox.jpg" alt="Mouse Pro X">
+
+            <div class="info">
+
+                <h3>Mouse Pro X</h3>
+
+                <p>
+                    Ideal para gaming competitivo y oficina.
+                </p>
+
+                <div class="precio">
+                    S/ 150
+                </div>
+
+                <div class="botones">
+
+                    <a href="compra-prox.html">
+                        <button class="comprar">
+                            Comprar
+                        </button>
+                    </a>
+
+                    <a href="carrito.html">
+                        <button class="carrito">
+                            Carrito
+                        </button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <section class="beneficios">
+
+        <div class="beneficio">
+
+            <h3>🚚 Envío Gratis</h3>
+
+            <p>
+                Envíos rápidos a todo el Perú.
+            </p>
+
+        </div>
+
+        <div class="beneficio">
+
+            <h3>💳 Pago Seguro</h3>
+
+            <p>
+                Aceptamos tarjetas, Yape y Plin.
+            </p>
+
+        </div>
+
+        <div class="beneficio">
+
+            <h3>⭐ Calidad Premium</h3>
+
+            <p>
+                Productos originales garantizados.
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="contacto" id="contacto">
+
+        <h2>Contáctanos</h2>
+
+        <input type="text" placeholder="Tu nombre">
+
+        <br>
+
+        <input type="email" placeholder="Tu correo">
+
+        <br>
+
+        <textarea rows="5" placeholder="Escribe tu mensaje"></textarea>
+
+        <br>
+
+        <button onclick="alert('Mensaje enviado correctamente')">
+            Enviar Mensaje
+        </button>
+
+    </section>
+
+    <footer>
+
+        <p>
+            © 2026 MouseStore - Todos los derechos reservados
+        </p>
+
+        <p>
+            📸 Instagram | 👍 Facebook | 🎵 TikTok | ▶️ YouTube
+        </p>
+
+    </footer>
+
+<script>
+
+async function cargarUsuario(){
+
+    try{
+
+        let respuesta = await fetch("/usuario-activo");
+        let usuario = await respuesta.json();
+
+        if(usuario.logueado){
+
+            document.getElementById("usuarioActivo").innerHTML =
+            "👋 Bienvenido, " + usuario.nombre;
+
+            document.getElementById("loginLink").style.display = "none";
+            document.getElementById("registroLink").style.display = "none";
+            document.getElementById("cerrarSesion").style.display = "inline-block";
+
+        }
+
+    }catch(error){
+        console.log(error);
+    }
+}
+
+
+function cerrarSesion(){
+    window.location.href = "/logout";
+}
+
+function actualizarContadorCarrito(){
+
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    let cantidad = 0;
+
+    carrito.forEach(producto => {
+        cantidad += producto.cantidad;
+    });
+
+    document.getElementById("contadorCarrito").innerHTML = cantidad;
+}
+
+cargarUsuario();
+actualizarContadorCarrito();
+
+</script>
+
+</body>
+</html>

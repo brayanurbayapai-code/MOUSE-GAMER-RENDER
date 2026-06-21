@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Admin | MouseStore</title>
+<link rel="icon" type="image/png" href="logo.png">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#07111f;
+    color:white;
+}
+
+.dashboard{
+    display:grid;
+    grid-template-columns:260px 1fr;
+    min-height:100vh;
+}
+
+.sidebar{
+    background:linear-gradient(180deg,#101b33,#07111f);
+    padding:25px;
+    border-right:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+    font-size:32px;
+    font-weight:bold;
+    margin-bottom:35px;
+}
+
+.logo span{color:#8b5cf6}
+
+.perfil{
+    background:rgba(255,255,255,.08);
+    padding:18px;
+    border-radius:18px;
+    margin-bottom:30px;
+}
+
+.perfil h3{font-size:18px}
+.perfil p{color:#aaa;font-size:14px;margin-top:5px}
+.online{color:#00ff99;font-size:13px;margin-top:8px}
+
+.menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    border-radius:14px;
+    margin-bottom:10px;
+}
+
+.menu a:hover,.activo{
+    background:linear-gradient(90deg,#6d28d9,#2563eb);
+}
+
+.main{
+    padding:28px;
+    background:radial-gradient(circle at top,#13233f,#07111f);
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:28px;
+}
+
+.topbar h1{
+    font-size:34px;
+}
+
+.exportar{
+    background:#7c3aed;
+    color:white;
+    border:none;
+    padding:13px 20px;
+    border-radius:12px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:18px;
+    margin-bottom:22px;
+}
+
+.card{
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.08);
+    padding:22px;
+    border-radius:20px;
+    box-shadow:0 0 18px rgba(0,0,0,.35);
+}
+
+.card small{
+    color:#aaa;
+    font-weight:bold;
+}
+
+.card h2{
+    margin-top:12px;
+    font-size:30px;
+}
+
+.verde{color:#00ff99}
+.azul{color:#38bdf8}
+.morado{color:#a78bfa}
+.naranja{color:#f59e0b}
+
+.grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr;
+    gap:18px;
+    margin-bottom:20px;
+}
+
+.panel{
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 0 18px rgba(0,0,0,.35);
+}
+
+.panel h3{
+    margin-bottom:18px;
+    font-size:20px;
+}
+
+.barras{
+    display:flex;
+    align-items:end;
+    gap:18px;
+    height:230px;
+    padding-top:20px;
+}
+
+.barra{
+    flex:1;
+    background:linear-gradient(180deg,#8b5cf6,#2563eb);
+    border-radius:10px 10px 0 0;
+    position:relative;
+    min-height:25px;
+}
+
+.barra span{
+    position:absolute;
+    bottom:-28px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:13px;
+    color:#ccc;
+}
+
+.lista div{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.estado{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.confirmado{background:#16a34a}
+.preparando{background:#ca8a04}
+.enviado{background:#2563eb}
+.entregado{background:#7c3aed}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    color:white;
+}
+
+th,td{
+    padding:13px;
+    text-align:left;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    font-size:14px;
+}
+
+th{color:#38bdf8}
+
+.tablas{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:18px;
+}
+
+button{
+    border:none;
+    padding:9px 13px;
+    border-radius:9px;
+    color:white;
+    cursor:pointer;
+}
+
+.eliminar{background:#dc3545}
+.vaciar{background:#64748b;margin-top:15px}
+
+@media(max-width:1000px){
+    .dashboard{grid-template-columns:1fr}
+    .sidebar{display:none}
+    .grid,.tablas{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+<aside class="sidebar">
+    <div class="logo">Mouse<span>Store</span></div>
+
+    <div class="perfil">
+        <h3>Administrador</h3>
+        <p>admin@mousestore.com</p>
+        <div class="online">● En línea</div>
+    </div>
+
+    <div class="menu">
+        <a class="activo" href="admin.html">📊 Dashboard</a>
+        <a href="index.html">🏠 Inicio</a>
+        <a href="carrito.html">🛒 Carrito</a>
+        <a href="mis-compras.html">📦 Mis Compras</a>
+        <a href="login.html">🚪 Cerrar sesión</a>
+    </div>
+</aside>
+
+<main class="main">
+
+    <div class="topbar">
+        <h1>Dashboard</h1>
+        <button class="exportar" onclick="window.print()">⬇ Exportar</button>
+    </div>
+
+    <section class="cards">
+        <div class="card">
+            <small>VENTAS TOTALES</small>
+            <h2 class="morado" id="ventasTotales">S/ 0</h2>
+            <p class="verde">↑ Datos locales</p>
+        </div>
+
+        <div class="card">
+            <small>PEDIDOS TOTALES</small>
+            <h2 class="azul" id="pedidosTotales">0</h2>
+            <p class="verde">↑ Compras registradas</p>
+        </div>
+
+        <div class="card">
+            <small>USUARIOS</small>
+            <h2 class="verde" id="usuariosTotales">0</h2>
+            <p class="verde">↑ Registrados</p>
+        </div>
+
+        <div class="card">
+            <small>CARRITO ACTUAL</small>
+            <h2 class="naranja" id="carritoTotal">0</h2>
+            <p class="verde">Productos activos</p>
+        </div>
+    </section>
+
+    <section class="grid">
+
+        <div class="panel">
+            <h3>📈 Ventas por Producto</h3>
+            <div class="barras" id="graficoVentas"></div>
+        </div>
+
+        <div class="panel">
+            <h3>📦 Pedidos por Estado</h3>
+            <div class="lista" id="pedidosEstado"></div>
+        </div>
+
+        <div class="panel">
+            <h3>🏆 Top Productos</h3>
+            <div class="lista" id="topProductos"></div>
+        </div>
+
+    </section>
+
+    <section class="tablas">
+
+        <div class="panel">
+            <h3>🛒 Últimas Compras</h3>
+            <div id="comprasTabla"></div>
+        </div>
+
+        <div class="panel">
+            <h3>👤 Usuarios</h3>
+            <div id="usuariosTabla"></div>
+        </div>
+
+    </section>
+
+</main>
+
+</div>
+
+<script>
+let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+let compras = JSON.parse(localStorage.getItem("compras")) || [];
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+function cargarDashboard(){
+    let ventas = compras.reduce((s,c)=>s + Number(c.total || 0),0);
+    let productosCarrito = carrito.reduce((s,p)=>s + Number(p.cantidad || 0),0);
+
+    document.getElementById("ventasTotales").innerText = "S/ " + ventas.toFixed(2);
+    document.getElementById("pedidosTotales").innerText = compras.length;
+    document.getElementById("usuariosTotales").innerText = usuarios.length;
+    document.getElementById("carritoTotal").innerText = productosCarrito;
+
+    mostrarGrafico();
+    mostrarEstados();
+    mostrarTopProductos();
+    mostrarCompras();
+    mostrarUsuarios();
+}
+
+function agruparProductos(){
+    let datos = {};
+
+    compras.forEach(c=>{
+        let nombre = c.producto || "Producto";
+        if(!datos[nombre]){
+            datos[nombre] = {cantidad:0,total:0};
+        }
+        datos[nombre].cantidad += Number(c.cantidad || 1);
+        datos[nombre].total += Number(c.total || 0);
+    });
+
+    return datos;
+}
+
+function mostrarGrafico(){
+    let contenedor = document.getElementById("graficoVentas");
+    let datos = agruparProductos();
+    let valores = Object.values(datos).map(d=>d.total);
+    let max = Math.max(...valores,1);
+
+    contenedor.innerHTML = "";
+
+    Object.entries(datos).forEach(([nombre,data])=>{
+        let altura = Math.max((data.total / max) * 200,25);
+
+        contenedor.innerHTML += `
+            <div class="barra" style="height:${altura}px">
+                <span>${nombre.substring(0,8)}</span>
+            </div>
+        `;
+    });
+
+    if(Object.keys(datos).length === 0){
+        contenedor.innerHTML = "<p>No hay ventas registradas.</p>";
+    }
+}
+
+function mostrarEstados(){
+    let estados = {
+        Confirmado:0,
+        Preparando:0,
+        Enviado:0,
+        Entregado:0
+    };
+
+    compras.forEach(c=>{
+        let estado = c.estado || "Confirmado";
+        if(estados[estado] !== undefined){
+            estados[estado]++;
+        }
+    });
+
+    document.getElementById("pedidosEstado").innerHTML = `
+        <div><span>Confirmado</span><strong>${estados.Confirmado}</strong></div>
+        <div><span>Preparando</span><strong>${estados.Preparando}</strong></div>
+        <div><span>Enviado</span><strong>${estados.Enviado}</strong></div>
+        <div><span>Entregado</span><strong>${estados.Entregado}</strong></div>
+    `;
+}
+
+function mostrarTopProductos(){
+    let datos = agruparProductos();
+    let ordenados = Object.entries(datos).sort((a,b)=>b[1].cantidad-a[1].cantidad).slice(0,5);
+
+    let html = "";
+
+    ordenados.forEach(([nombre,data],i)=>{
+        html += `
+            <div>
+                <span>${i+1}. ${nombre}</span>
+                <strong>${data.cantidad} uds</strong>
+            </div>
+        `;
+    });
+
+    document.getElementById("topProductos").innerHTML = html || "<p>Sin productos vendidos.</p>";
+}
+
+function mostrarCompras(){
+    let contenedor = document.getElementById("comprasTabla");
+
+    if(compras.length === 0){
+        contenedor.innerHTML = "<p>No hay compras registradas.</p>";
+        return;
+    }
+
+    let html = `
+        <table>
+            <tr>
+                <th>Producto</th>
+                <th>Total</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+    `;
+
+    compras.slice(-6).reverse().forEach((c,index)=>{
+        let estado = c.estado || "Confirmado";
+
+        html += `
+            <tr>
+                <td>${c.producto}</td>
+                <td>S/ ${c.total}</td>
+                <td>${c.fecha || "Sin fecha"}</td>
+                <td><span class="estado ${estado.toLowerCase()}">${estado}</span></td>
+                <td><button class="eliminar" onclick="eliminarCompra(${compras.length-1-index})">Eliminar</button></td>
+            </tr>
+        `;
+    });
+
+    html += "</table>";
+    contenedor.innerHTML = html;
+}
+
+function mostrarUsuarios(){
+    let contenedor = document.getElementById("usuariosTabla");
+
+    if(usuarios.length === 0){
+        contenedor.innerHTML = "<p>No hay usuarios registrados.</p>";
+        return;
+    }
+
+    let html = `
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Correo</th>
+            </tr>
+    `;
+
+    usuarios.slice(-5).reverse().forEach(u=>{
+        html += `
+            <tr>
+                <td>${u.nombre}</td>
+                <td>${u.correo}</td>
+            </tr>
+        `;
+    });
+
+    html += "</table>";
+    contenedor.innerHTML = html;
+}
+
+function eliminarCompra(index){
+    compras.splice(index,1);
+    localStorage.setItem("compras",JSON.stringify(compras));
+    cargarDashboard();
+}
+
+cargarDashboard();
+</script>
+
+</body>
+</html>
